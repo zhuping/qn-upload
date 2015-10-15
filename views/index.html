@@ -1,0 +1,46 @@
+<style>
+  .preview {
+    margin-top: 30px;
+  }
+  .preview img {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    margin-right: 10px;
+  } 
+</style>
+
+<div>
+  <input type="file" class="uploader-ghost" id="J_upload">
+  <div class="preview"></div>
+</div>
+
+<script>
+  $(document).ready(function() {
+    $('#J_upload').on('change', function(e) {
+      var file = e.target.files && e.target.files[0];
+      if (!file.type.match('image.*')) {
+        alert('请上传图片文件。');
+        return;
+      }
+
+      var data = new FormData();
+      data.append('avatar', file);
+
+      $.ajax({
+        url: '/api/uploadImg',
+        type: 'post',
+        data: data,
+        processData: false,
+        contentType: false,
+        success: function(resp) {
+          if (!resp.ok) {
+            me.showError(resp.message);
+          } else {
+            $('<img />').attr('src', resp.data.filepath).appendTo('.preview');
+          }
+        }
+      });
+    });
+  });
+</script>

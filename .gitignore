@@ -1,0 +1,10 @@
+node_modules/
+public/uploads/*.jpg
+public/uploads/*.png
+public/uploads/*.gif
+/*.log
+/*.bat
+*.swp
+tags
+.DS_Store
+.idea/*
